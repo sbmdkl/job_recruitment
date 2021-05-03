@@ -250,7 +250,7 @@
 		"/users/password/reset/change": {
 			"post": {
 				"tags": ["users"],
-				"summary": "Change User Password After OTP",
+				"summary": "Change User Password After OTP (both)",
 				"requestBody": {
 					"description": "change user password after success otp",
 					"content": {
@@ -309,7 +309,7 @@
 		"/jobs": {
 			"get": {
 				"tags": ["jobs"],
-				"summary": "Fetch all jobs",
+				"summary": "Fetch all jobs (both)",
 				"responses": {
 					"200": {
 						"description": "successful operation",
@@ -330,7 +330,7 @@
 			},
 			"post": {
 				"tags": ["jobs"],
-				"summary": "Create new Job By Company",
+				"summary": "Create new Job By Company (company)",
 				"requestBody": {
 					"description": "Job model fields",
 					"content": {
@@ -373,7 +373,7 @@
 		"/jobs/{id}": {
 			"get": {
 				"tags": ["jobs"],
-				"summary": "Find job by Id",
+				"summary": "Find job by Id (both)",
 				"parameters": [
 					{
 						"name": "id",
@@ -405,7 +405,7 @@
 			},
 			"patch": {
 				"tags": ["jobs"],
-				"summary": "Update Job by Id",
+				"summary": "Update Job by Id (company)",
 				"parameters": [
 					{
 						"name": "id",
