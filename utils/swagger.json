@@ -546,7 +546,7 @@
 			},
 			"patch": {
 				"tags": ["skills"],
-				"summary": "Update skill by Id",
+				"summary": "Update skill by Id (admin)",
 				"parameters": [
 					{
 						"name": "id",
