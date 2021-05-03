@@ -1,7 +1,7 @@
 // import all routes
 const usersRoute = require('../components/users/usersAPI');
 const jobsRoute = require('../components/jobs/jobsAPI');
-const skillsRoute = require('../components/skills/skillAPI');
+const skillsRoute = require('../components/skills/skillsAPI');
 const init = (app) => {
 	app.get('/', (req, res) => {
 		res.send('Hello');

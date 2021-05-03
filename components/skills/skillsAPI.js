@@ -1,7 +1,7 @@
 const express = require('express');
 const skillsController = require('./skillsController');
 const Route = express.Router();
-
+const passport = require('passport');
 // @route   api/skills/
 Route.route('/')
 	.get(passport.authenticate('both', { session: false }), skillsController.findAll)
