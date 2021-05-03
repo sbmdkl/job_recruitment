@@ -24,7 +24,8 @@ const findOne = async (jobObject) => {
 
 const findOneById = async (id) => {
 	const job = await Job.findById(id);
-	return job.toObject();
+	if (job) return job.toObject();
+	else return null;
 };
 
 const findByIdAndUpdate = async ({ id, updateJob }) => {
