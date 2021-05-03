@@ -1,0 +1,442 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AI Based Job Recruiter System",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://recruiter.ifotechservice.com/api",
+      "description": ""
+    },
+    {
+      "url": "http://localhost:5000/api",
+      "description": ""
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Users/companies API Collections"
+    },
+    {
+      "name": "profiles",
+      "description": "Profiles API Collections"
+    },
+    {
+      "name": "jobs",
+      "description": "Jobs API Collections"
+    },
+    {
+      "name": "tags",
+      "description": "Tags/Skills API Collections"
+    },
+    {
+      "name": "applied-jobs",
+      "description": "Applied jobs API Collections"
+    }
+  ],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Login user",
+        "requestBody": {
+          "description": "Email and password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/UserLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/response/models/UserLogin"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create user / company",
+        "requestBody": {
+          "description": "user model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/UserCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/response/models/UserCreate"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/password/reset": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Reset Password Using Email.",
+        "requestBody": {
+          "description": "user's email to reset password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "systemTime": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/password/reset/verify": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Verify OTP.",
+        "requestBody": {
+          "description": "enter otp send to email",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "systemTime": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/password/reset/change": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Change User Password After OTP",
+        "requestBody": {
+          "description": "change user password after success otp",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "systemTime": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": ["name", "email", "password"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "password": { "type": "string" },
+          "country": { "type": "string" },
+          "address": { "type": "string" },
+          "role": { "type": "string" },
+          "photo": { "type": "string" },
+          "title": { "type": "string" },
+          "about": { "type": "string" },
+          "token": { "type": "string" },
+          "status": { "type": "integer" },
+          "date": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt_token": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Bearer Token",
+        "bearerFormat": "bearer"
+      }
+    }
+  },
+  "definitions": {
+    "response": {
+      "models": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "UserLogin": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        },
+        "UserCreate": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "$ref": "#/definitions/response/models/User"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "invalid": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "request": {
+      "models": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "UserLogin": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "UserCreate": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
