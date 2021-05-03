@@ -369,6 +369,83 @@
 				"security": [{ "jwt_token": [] }],
 				"x-codegen-request-body-name": "body"
 			}
+		},
+		"/jobs/{id}": {
+			"get": {
+				"tags": ["jobs"],
+				"summary": "Find job by Id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of Job that needs to be fetched",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/response/models/Job"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Error Fetching Job"
+					}
+				},
+				"security": [{ "jwt_token": [] }],
+				"x-codegen-request-body-name": "body"
+			},
+			"patch": {
+				"tags": ["jobs"],
+				"summary": "Update Job by Id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of job that needs to be updated",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Categories model fields",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/request/models/JobUpdate"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/response/models/Job"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Error updating Job"
+					}
+				},
+				"security": [{ "jwt_token": [] }],
+				"x-codegen-request-body-name": "body"
+			}
 		}
 	},
 	"components": {
@@ -509,6 +586,19 @@
 						"title": { "type": "string" },
 						"location": { "type": "string" },
 						"total_applicants": { "type": "integer" },
+						"level": { "type": "string" },
+						"salary": { "type": "string" },
+						"emp_type": { "type": "string" },
+						"status": { "type": "string" },
+						"description": { "type": "string" },
+						"endDate": { "type": "string" }
+					}
+				},
+				"JobUpdate": {
+					"type": "object",
+					"properties": {
+						"title": { "type": "string" },
+						"location": { "type": "string" },
 						"level": { "type": "string" },
 						"salary": { "type": "string" },
 						"emp_type": { "type": "string" },
