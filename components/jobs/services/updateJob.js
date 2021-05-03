@@ -8,7 +8,7 @@ module.exports = function makeUpdateJob({ Job }) {
 			body,
 		},
 	}) {
-		const job = await Job.findOne({ id, company: user.id });
+		const job = await Job.findOne({ _id, company: user.id });
 		if (!job) throw { error: 'No such job exists' };
 		const { errors, isValid, data } = validateJob({ ...job, ...body });
 		if (!isValid) {
