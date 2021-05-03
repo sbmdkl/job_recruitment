@@ -12,9 +12,9 @@ const findAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-	const { body } = req;
+	const { body, user } = req;
 	try {
-		const response = await jobsService.create({ httpRequest: { body } });
+		const response = await jobsService.create({ httpRequest: { body, user } });
 		res.status(200).send(response);
 	} catch (e) {
 		console.log(e);
@@ -34,9 +34,9 @@ const findOne = async (req, res) => {
 };
 
 const update = async (req, res) => {
-	const { params, body } = req;
+	const { params, body, user } = req;
 	try {
-		const response = await jobsService.update({ httpRequest: { params, body } });
+		const response = await jobsService.update({ httpRequest: { params, body, user } });
 		res.status(200).send(response);
 	} catch (e) {
 		console.log(e);
@@ -60,5 +60,5 @@ module.exports = {
 	create,
 	findOne,
 	update,
-	destroy
+	destroy,
 };

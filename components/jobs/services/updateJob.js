@@ -6,6 +6,7 @@ module.exports = function makeUpdateJob({ Job }) {
 		httpRequest: {
 			params: { id },
 			body,
+			user,
 		},
 	}) {
 		const job = await Job.findOne({ _id, company: user.id });
