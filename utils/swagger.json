@@ -2,7 +2,7 @@
 	"openapi": "3.0.0",
 	"info": {
 		"title": "AI Based Job Recruiter System",
-		"description": "",
+		"description": "API accessibility terms:\nuser -> can be accessed by users,\ncompany -> can be accessed by companies\nadmin -> can be accessed by admins\nboth -> can be accessed by users and companies\nall -> can be accessed by admins, users, and companies",
 		"version": "1.0.0"
 	},
 	"servers": [
