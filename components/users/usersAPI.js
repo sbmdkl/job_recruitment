@@ -3,7 +3,7 @@ const usersController = require('./usersController');
 const Route = express.Router();
 const passport = require('passport');
 // @route   api/users/
-Route.route('/').get(passport.authenticate('admin', { session: false }), usersController.findAll);
+Route.route('/').get(usersController.findAll);
 Route.route('/login').post(usersController.login);
 Route.route('/signup').post(usersController.signup);
 Route.route('/password/reset').post(usersController.resetPassword);
