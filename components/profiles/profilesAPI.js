@@ -7,7 +7,7 @@ const passport = require('passport');
 Route.route('/')
 	.get(profilesController.findAll)
 	.post(passport.authenticate('both', { session: false }), profilesController.create);
-Route.route('/:id')
+Route.route('/:userId')
 	.get(passport.authenticate('both', { session: false }), profilesController.findOne)
 	.patch(passport.authenticate('both', { session: false }), profilesController.update);
 
