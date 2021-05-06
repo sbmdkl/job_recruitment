@@ -1,7 +1,7 @@
 module.exports = ({
 	profile: {
 		_id,
-		user: { name, email, phone, country, address, photo, title, about, role },
+		user: { _id: id, name, email, phone, country, address, photo, title, about, role },
 		education,
 		experience,
 		skills,
@@ -10,7 +10,7 @@ module.exports = ({
 	if (role === 'user') {
 		return {
 			id: _id,
-			user: { name, email, phone, country, address, photo, title, about },
+			user: { id, name, email, phone, country, address, photo, title, about },
 			education,
 			experience,
 			skills,
@@ -18,7 +18,7 @@ module.exports = ({
 	} else {
 		return {
 			id: _id,
-			user: { name, email, phone, country, address, photo, title, about },
+			user: { id, name, email, phone, country, address, photo, title, about },
 		};
 	}
 };
