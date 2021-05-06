@@ -587,6 +587,106 @@
 				"security": [{ "jwt_token": [] }],
 				"x-codegen-request-body-name": "body"
 			}
+		},
+		"/profiles": {
+			"get": {
+				"tags": ["profiles"],
+				"summary": "Fetch all profiles (admin)",
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Profile"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [{ "jwt_token": [] }],
+				"x-codegen-request-body-name": "body"
+			}
+		},
+		"/profiles/{userId}": {
+			"get": {
+				"tags": ["profiles"],
+				"summary": "Find user profile by Id (both)",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "userId of user that needs to be fetched",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Profile"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Error Fetching Profile"
+					}
+				},
+				"security": [{ "jwt_token": [] }],
+				"x-codegen-request-body-name": "body"
+			},
+			"patch": {
+				"tags": ["profiles"],
+				"summary": "Update profile by userId (both)",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"description": "userId of user that needs to be updated",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "send array of education (object), skills (id), experience (object)",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/request/models/Profile"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Profile"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Error updating Profile"
+					}
+				},
+				"security": [{ "jwt_token": [] }],
+				"x-codegen-request-body-name": "body"
+			}
 		}
 	},
 	"components": {
@@ -633,9 +733,69 @@
 				"type": "object",
 				"properties": {
 					"id": { "type": "integer" },
-					"title": { "type": "string" },
+					"name": { "type": "string" },
 					"description": { "type": "string" },
 					"similar": { "type": "array", "items": { "type": "string" } }
+				}
+			},
+			"Profile": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "integer" },
+					"user": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"name": { "type": "string" },
+								"email": { "type": "string" },
+								"phone": { "type": "string" },
+								"country": { "type": "string" },
+								"address": { "type": "string" },
+								"photo": { "type": "string" },
+								"title": { "type": "string" },
+								"about": { "type": "string" }
+							}
+						}
+					},
+					"education": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"school": { "type": "string" },
+								"degree": { "type": "string" },
+								"from": { "type": "string" },
+								"to": { "type": "string" },
+								"description": { "type": "string" }
+							}
+						}
+					},
+					"experience": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"title": { "type": "string" },
+								"emp_type": { "type": "string" },
+								"company": { "type": "string" },
+								"location": { "type": "string" },
+								"start": { "type": "string" },
+								"end": { "type": "string" }
+							}
+						}
+					},
+					"skills": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"name": { "type": "string" },
+								"description": { "type": "string" },
+								"similar": { "type": "array", "items": { "type": "string" } }
+							}
+						}
+					}
 				}
 			}
 		},
@@ -820,6 +980,44 @@
 						},
 						"role": {
 							"type": "string"
+						}
+					}
+				},
+				"Profile": {
+					"type": "object",
+					"properties": {
+						"education": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"school": { "type": "string" },
+									"degree": { "type": "string" },
+									"from": { "type": "string" },
+									"to": { "type": "string" },
+									"description": { "type": "string" }
+								}
+							}
+						},
+						"experience": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"title": { "type": "string" },
+									"emp_type": { "type": "string" },
+									"company": { "type": "string" },
+									"location": { "type": "string" },
+									"start": { "type": "string" },
+									"end": { "type": "string" }
+								}
+							}
+						},
+						"skills": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
 						}
 					}
 				}
