@@ -1,7 +1,7 @@
 const { validateSignUp } = require('../validators');
 const { signupDTO } = require('../dtos');
 
-module.exports = function makeUserSignUp({ User, bcrypt, jwt }) {
+module.exports = function makeUserSignUp({ CreateProfileService, User, bcrypt, jwt }) {
 	return async function userSignUp({ httpRequest }) {
 		const { errors, isValid, data } = validateSignUp(httpRequest.body);
 		if (!isValid) {
@@ -30,7 +30,8 @@ module.exports = function makeUserSignUp({ User, bcrypt, jwt }) {
 		} catch (e) {
 			throw new Error('Error occurred during signup. Please try again later');
 		}
-
+		// create new profile
+		CreateProfileService({ httpRequest: { body: {}, user: { id: createdUser.id } } });
 		let payload = {
 			id: createdUser.id,
 			name: createdUser.name,
