@@ -13,13 +13,13 @@ const findAll = async ({ query }) => {
 		.skip(skip)
 		.limit(limit)
 		.sort('-date')
-		.populate('user', '-date -token -status -password');
+		.populate('user skills', '-date -token -status -password');
 };
 
 const findOne = async (profileObject) => {
 	try {
 		const profile = await Profile.findOne(profileObject).populate(
-			'user',
+			'user skills',
 			'-date -token -status -password'
 		);
 		if (profile) return profile.toObject();
@@ -30,7 +30,10 @@ const findOne = async (profileObject) => {
 };
 const findOneById = async (id) => {
 	try {
-		const profile = await Profile.findById(id).populate('user', '-date -token -status -password');
+		const profile = await Profile.findById(id).populate(
+			'user skills',
+			'-date -token -status -password'
+		);
 		if (profile) return profile.toObject();
 		else return null;
 	} catch (err) {
