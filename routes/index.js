@@ -2,6 +2,7 @@
 const usersRoute = require('../components/users/usersAPI');
 const jobsRoute = require('../components/jobs/jobsAPI');
 const skillsRoute = require('../components/skills/skillsAPI');
+const profileRoute = require('../components/profiles/profilesAPI');
 const init = (app) => {
 	app.get('/', (req, res) => {
 		res.send('Hello');
@@ -9,6 +10,7 @@ const init = (app) => {
 	app.use('/api/users', usersRoute);
 	app.use('/api/jobs', jobsRoute);
 	app.use('/api/skills', skillsRoute);
+	app.use('/api/profiles', profileRoute);
 
 	// not found
 	app.all('*', (req, res, next) => {
