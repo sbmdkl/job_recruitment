@@ -18,16 +18,12 @@ const JobSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
-	level: {
-		type: String,
-		default: 'Entry',
-	},
-	// skills: [
-	// 	{
-	// 		type: Schema.Types.ObjectId,
-	// 		ref: 'skills',
-	// 	},
-	// ],
+	skills: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'skills',
+		},
+	],
 	salary: {
 		type: String,
 		default: 'Negotiable',
@@ -35,6 +31,18 @@ const JobSchema = new Schema({
 	emp_type: {
 		type: String,
 		default: 'Full-Time',
+	},
+	seniority_level: {
+		type: String,
+		default: 'Intermediate'
+	},
+	industry: {
+		type: String,
+		default: 'Computer Software'
+	},
+	job_function: {
+		type: String,
+		default: ''
 	},
 	status: {
 		type: String,
