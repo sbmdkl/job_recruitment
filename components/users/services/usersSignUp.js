@@ -16,6 +16,11 @@ module.exports = function makeUserSignUp({ CreateProfileService, User, bcrypt, j
 		const newUser = {
 			name: data.getName(),
 			email: data.getEmail(),
+			phone: data.getphone(),
+			country: data.getcountry(),
+			address: data.getaddress(),
+			title: data.gettitle(),
+			about: data.getabout(),
 			role: data.getRole(),
 			password: data.getPassword(),
 			date: data.getDate(),

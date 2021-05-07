@@ -1,5 +1,16 @@
 module.exports = function makeValidateSignUp({ Validator, isEmpty }) {
-	return function validateSignUp({ name, email, password, role = 'user', date = Date.now() }) {
+	return function validateSignUp({
+		name,
+		email,
+		phone = '',
+		country = '',
+		address = '',
+		title = '',
+		about = '',
+		password,
+		role = 'user',
+		date = Date.now(),
+	}) {
 		let errors = {};
 
 		name = !isEmpty(name) ? name + '' : '';
@@ -31,6 +42,11 @@ module.exports = function makeValidateSignUp({ Validator, isEmpty }) {
 			data: Object.freeze({
 				getName: () => name,
 				getEmail: () => email,
+				getphone: () => phone,
+				getcountry: () => country,
+				getaddress: () => address,
+				gettitle: () => title,
+				getabout: () => about,
 				getPassword: () => password,
 				getRole: () => role,
 				getDate: () => date,
