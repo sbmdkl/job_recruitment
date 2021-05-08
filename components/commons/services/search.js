@@ -1,11 +1,22 @@
 const { allCommonsDTO } = require('../dtos');
+const Fragmentation = { fragment_size: 150, number_of_fragments: 1 };
+const UserField = {
+	title: Fragmentation,
+	name: Fragmentation,
+	email: Fragmentation,
+};
+const JobField = {
+	title: Fragmentation,
+	location: Fragmentation,
+	industry: Fragmentation,
+};
 module.exports = function makeSearch({ Common, Client }) {
 	return async function serach({ httpRequest: { query } }) {
 		// search query
 		let { q, type, size } = query;
 		q = q ? q : '';
-		type = type ? type : 'users';
-		size = size ? size : 10;
+		type = type === 'users' ? type : type === 'jobs' ? type : 'users';
+		size = Number(size) ? Number(size) : 10;
 		const response = await Client.search({
 			index: 'recruiters',
 			type: type,
@@ -14,17 +25,16 @@ module.exports = function makeSearch({ Common, Client }) {
 				query: {
 					query_string: {
 						query: `*${q}*`,
-						fields: ['name^4', 'title^3', 'email'],
+						fields:
+							type === 'users'
+								? ['name^4', 'title^3', 'email']
+								: ['title^4', 'location^3', 'industry'],
 					},
 				},
 				highlight: {
 					pre_tags: ['<b>'],
 					post_tags: ['</b>'],
-					fields: {
-						title: { fragment_size: 150, number_of_fragments: 1 },
-						name: { fragment_size: 150, number_of_fragments: 1 },
-						email: { fragment_size: 150, number_of_fragments: 1 },
-					},
+					fields: type === 'users' ? UserField : JobField,
 				},
 			},
 		});
