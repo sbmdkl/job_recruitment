@@ -17,6 +17,10 @@ const findAll = async ({ query }) => {
 	limit = limit ? Number(limit) : 10;
 	limit = limit === 0 ? Number(limit) : 0;
 	const users = await User.find({}).skip(skip).limit(limit);
+	// let regex = new RegExp(q, 'i');
+	// const users = await User.find({
+	// 	$and: [{ $or: [{ name: regex }, { title: regex }, { email: regex }] }],
+	// });
 	return users;
 };
 

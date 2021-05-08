@@ -16,7 +16,7 @@ module.exports = function makeSearch({ Common, Client }) {
 		let { q, type, size } = query;
 		q = q ? q : '';
 		type = type === 'users' ? type : type === 'jobs' ? type : 'users';
-		size = Number(size) ? Number(size) : 10;
+		size = Number(size) ? Number(size) : 1000;
 		const response = await Client.search({
 			index: 'recruiters',
 			type: type,
