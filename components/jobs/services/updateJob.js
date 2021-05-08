@@ -1,7 +1,7 @@
 const { validateJob } = require('../validators');
 const { updateJobDTO } = require('../dtos');
 
-module.exports = function makeUpdateJob({ Job }) {
+module.exports = function makeUpdateJob({ Job, ElasticAddJob }) {
 	return async function updateJob({
 		httpRequest: {
 			params: { id },
@@ -32,6 +32,18 @@ module.exports = function makeUpdateJob({ Job }) {
 		};
 		let updatedJob = await Job.findByIdAndUpdate({ id, updateJob });
 		if (!updateJob) throw { error: 'Error while updating Job' };
+
+		ElasticAddJob({
+			httpRequest: {
+				body: {
+					id: id,
+					title: updatedJob.title,
+					location: updatedJob.location,
+					industry: updatedJob.industry,
+				},
+			},
+		});
+
 		return updateJobDTO({ job: { ...job, ...updatedJob } });
 	};
 };

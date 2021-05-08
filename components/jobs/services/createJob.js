@@ -1,7 +1,7 @@
 const { validateJob } = require('../validators');
 const { createJobDTO } = require('../dtos');
 
-module.exports = function makeCreateJob({ Job }) {
+module.exports = function makeCreateJob({ Job, ElasticAddJob }) {
 	return async function createJob({ httpRequest: { body, user } }) {
 		const { errors, isValid, data } = validateJob(body);
 		if (!isValid) {
@@ -24,6 +24,17 @@ module.exports = function makeCreateJob({ Job }) {
 			date: data.getdate(),
 		};
 		let createdJob = await Job.create(newJob);
+		ElasticAddJob({
+			httpRequest: {
+				body: {
+					id: createdJob.id,
+					title: createdJob.title,
+					location: createdJob.location,
+					industry: createdJob.industry,
+				},
+			},
+		});
+
 		return createJobDTO({ job: createdJob });
 	};
 };

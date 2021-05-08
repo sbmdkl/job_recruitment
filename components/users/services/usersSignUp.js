@@ -37,6 +37,19 @@ module.exports = function makeUserSignUp({ CreateProfileService, User, bcrypt, j
 		}
 		// create new profile
 		CreateProfileService({ httpRequest: { body: {}, user: { id: createdUser.id } } });
+		ElasticAddUser({
+			httpRequest: {
+				body: {
+					id: createdUser.id,
+					name: createdUser.name,
+					email: createdUser.email,
+					phone: createdUser.phone,
+					country: createdUser.country,
+					address: createdUser.address,
+					title: createdUser.title,
+				},
+			},
+		});
 		let payload = {
 			id: createdUser.id,
 			name: createdUser.name,
