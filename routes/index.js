@@ -3,13 +3,13 @@ const usersRoute = require('../components/users/usersAPI');
 const jobsRoute = require('../components/jobs/jobsAPI');
 const skillsRoute = require('../components/skills/skillsAPI');
 const profileRoute = require('../components/profiles/profilesAPI');
+const commonRoutes = require('../components/commons/commonsAPI');
 const init = (app) => {
-	app.get('/', (req, res) => {
-		res.send('Hello');
-	});
+	app.use('/', commonRoutes);
 	app.use('/api/users', usersRoute);
 	app.use('/api/jobs', jobsRoute);
 	app.use('/api/skills', skillsRoute);
+	app.use('/api/profiles', profileRoute);
 	app.use('/api/profiles', profileRoute);
 
 	// not found
