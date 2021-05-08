@@ -1,7 +1,7 @@
 const makeFindAllUsers = require('../../users/services/findAllUsers');
 const makeFindAllJobs = require('../../jobs/services/findAllJobs');
-const User = require('../../users/User');
-const Job = require('../../jobs/Job');
+const User = require('../../users/usersDAL');
+const Job = require('../../jobs/jobsDAL');
 const FindAllUsers = makeFindAllUsers({ User });
 const FindAllJobs = makeFindAllJobs({ Job });
 
