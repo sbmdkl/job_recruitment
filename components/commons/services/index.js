@@ -1,21 +1,23 @@
 const Common = require('../commonsDAL');
-
-const makeCreateCommon = require('./createCommon');
-const makeDeleteCommon = require('./deleteCommon');
+const { findAll: FindAllUsers } = require('../../users/services');
+const { findAll: FindAllJobs } = require('../../jobs/services');
+const Client = require('../../../elasticsearch/connection');
+const makeElasticInitialize = require('./elasticInitialize');
 const makeSearch = require('./search');
-const makeFindOneCommon = require('./findOneCommon');
-const makeUpdateCommon = require('./updateCommon');
+const makeElasticPopulate = require('./elasticPopulate');
+const makeAddUserDocument = require('./addUserDocument');
+const makeAddJobDocument = require('./addJobDocument');
 
-const create = makeCreateCommon({ Common });
-const destroy = makeDeleteCommon({ Common });
-const search = makeSearch({ Common });
-const findOne = makeFindOneCommon({ Common });
-const update = makeUpdateCommon({ Common });
+const initialize = makeElasticInitialize({ Common, Client });
+const search = makeSearch({ Common, Client });
+const populate = makeElasticPopulate({ Common, Client, FindAllUsers, FindAllJobs });
+const addUserDocument = makeAddUserDocument({ Common, Client });
+const addJobDocument = makeAddJobDocument({ Common, Client });
 
 module.exports = {
-	create,
-	destroy,
+	initialize,
 	search,
-	findOne,
-	update,
+	populate,
+	addUserDocument,
+	addJobDocument,
 };
