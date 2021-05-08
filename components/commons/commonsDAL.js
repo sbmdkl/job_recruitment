@@ -6,6 +6,7 @@ const create = async (newCommon) => {
 };
 
 const search = async ({ query }) => {
+	// implement searching...
 	let { skip, limit } = query;
 	skip = skip ? Number(skip) : 0;
 	limit = limit ? Number(limit) : 10;

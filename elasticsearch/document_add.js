@@ -1,7 +1,7 @@
 var client = require('./connection.js');
 
-client.index(
-	{
+client
+	.index({
 		index: 'recruiters',
 		id: '609562e0bff591183cfbde04',
 		type: 'users',
@@ -14,8 +14,10 @@ client.index(
 			title: 'Pharmacist',
 			about: '',
 		},
-	},
-	function (err, resp, status) {
+	})
+	.then((resp, status) => {
 		console.log(resp);
-	}
-);
+	})
+	.catch((err) => {
+		console.log(err);
+	});
