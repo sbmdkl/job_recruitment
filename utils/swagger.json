@@ -1,1035 +1,1039 @@
 {
-	"openapi": "3.0.0",
-	"info": {
-		"title": "AI Based Job Recruiter System",
-		"description": "API accessibility terms:\nuser -> can be accessed by users,\ncompany -> can be accessed by companies\nadmin -> can be accessed by admins\nboth -> can be accessed by users and companies\nall -> can be accessed by admins, users, and companies",
-		"version": "1.0.0"
-	},
-	"servers": [
-		{
-			"url": "https://recruiter.ifotechservice.com/api",
-			"description": ""
-		},
-		{
-			"url": "http://localhost:5000/api",
-			"description": ""
-		}
-	],
-	"tags": [
-		{
-			"name": "users",
-			"description": "Users/companies API Collections"
-		},
-		{
-			"name": "profiles",
-			"description": "Profiles API Collections"
-		},
-		{
-			"name": "jobs",
-			"description": "Jobs API Collections"
-		},
-		{
-			"name": "skills",
-			"description": "Skills API Collections"
-		},
-		{
-			"name": "applied-jobs",
-			"description": "Applied jobs API Collections"
-		}
-	],
-	"paths": {
-		"/users/login": {
-			"post": {
-				"tags": ["users"],
-				"summary": "Login user",
-				"requestBody": {
-					"description": "Email and password",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/UserLogin"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/definitions/response/models/UserLogin"
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/users/signup": {
-			"post": {
-				"tags": ["users"],
-				"summary": "Create user / company",
-				"requestBody": {
-					"description": "user model fields",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/UserCreate"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/UserCreate"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/users/password/reset": {
-			"post": {
-				"tags": ["users"],
-				"summary": "Reset Password Using Email.",
-				"requestBody": {
-					"description": "user's email to reset password",
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"email": {
-										"type": "string"
-									}
-								}
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"message": {
-											"type": "string"
-										},
-										"systemTime": {
-											"type": "integer"
-										}
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/users/password/reset/verify": {
-			"post": {
-				"tags": ["users"],
-				"summary": "Verify OTP.",
-				"requestBody": {
-					"description": "enter otp send to email",
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"email": {
-										"type": "string"
-									},
-									"otp": {
-										"type": "string"
-									}
-								}
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"token": {
-											"type": "string"
-										},
-										"message": {
-											"type": "string"
-										},
-										"systemTime": {
-											"type": "integer"
-										}
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/users/password/reset/change": {
-			"post": {
-				"tags": ["users"],
-				"summary": "Change User Password After OTP (both)",
-				"requestBody": {
-					"description": "change user password after success otp",
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"newPassword": {
-										"type": "string"
-									}
-								}
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"message": {
-											"type": "string"
-										},
-										"systemTime": {
-											"type": "integer"
-										}
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/jobs": {
-			"get": {
-				"tags": ["jobs"],
-				"summary": "Fetch all jobs (both)",
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/definitions/response/models/Job"
-									}
-								}
-							}
-						}
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			},
-			"post": {
-				"tags": ["jobs"],
-				"summary": "Create new Job By Company (company)",
-				"requestBody": {
-					"description": "Job model fields",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/Job"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/Job"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/jobs/{id}": {
-			"get": {
-				"tags": ["jobs"],
-				"summary": "Find job by Id (both)",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "ID of Job that needs to be fetched",
-						"required": true,
-						"schema": {
-							"type": "integer"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/Job"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Error Fetching Job"
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			},
-			"patch": {
-				"tags": ["jobs"],
-				"summary": "Update Job by Id (company)",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "ID of job that needs to be updated",
-						"required": true,
-						"schema": {
-							"type": "integer"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "Categories model fields",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/JobUpdate"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/Job"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Error updating Job"
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/skills": {
-			"get": {
-				"tags": ["skills"],
-				"summary": "Fetch all skills (both)",
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/definitions/response/models/Skill"
-									}
-								}
-							}
-						}
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			},
-			"post": {
-				"tags": ["skills"],
-				"summary": "Create new skill (admin)",
-				"requestBody": {
-					"description": "skill model fields",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/Skill"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/Skill"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Invalid data",
-						"content": {}
-					},
-					"404": {
-						"description": "Not found",
-						"content": {}
-					},
-					"500": {
-						"description": "Server error",
-						"content": {}
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/skills/{id}": {
-			"get": {
-				"tags": ["skills"],
-				"summary": "Find skill by Id (both)",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "ID of skill that needs to be fetched",
-						"required": true,
-						"schema": {
-							"type": "integer"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/Skill"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Error Fetching Skill"
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			},
-			"patch": {
-				"tags": ["skills"],
-				"summary": "Update skill by Id (admin)",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "ID of skill that needs to be updated",
-						"required": true,
-						"schema": {
-							"type": "integer"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "skills model fields",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/Skill"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/definitions/response/models/Skill"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Error updating Skill"
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/profiles": {
-			"get": {
-				"tags": ["profiles"],
-				"summary": "Fetch all profiles (admin)",
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/Profile"
-									}
-								}
-							}
-						}
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		},
-		"/profiles/{userId}": {
-			"get": {
-				"tags": ["profiles"],
-				"summary": "Find user profile by Id (both)",
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"description": "userId of user that needs to be fetched",
-						"required": true,
-						"schema": {
-							"type": "integer"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Profile"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Error Fetching Profile"
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			},
-			"patch": {
-				"tags": ["profiles"],
-				"summary": "Update profile by userId (both)",
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"description": "userId of user that needs to be updated",
-						"required": true,
-						"schema": {
-							"type": "integer"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "send array of education (object), skills (id), experience (object)",
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/definitions/request/models/Profile"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Profile"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Error updating Profile"
-					}
-				},
-				"security": [{ "jwt_token": [] }],
-				"x-codegen-request-body-name": "body"
-			}
-		}
-	},
-	"components": {
-		"schemas": {
-			"User": {
-				"required": ["name", "email", "password"],
-				"type": "object",
-				"properties": {
-					"id": { "type": "integer" },
-					"name": { "type": "string" },
-					"email": { "type": "string" },
-					"phone": { "type": "string" },
-					"password": { "type": "string" },
-					"country": { "type": "string" },
-					"address": { "type": "string" },
-					"role": { "type": "string" },
-					"photo": { "type": "string" },
-					"title": { "type": "string" },
-					"about": { "type": "string" },
-					"token": { "type": "string" },
-					"status": { "type": "integer" },
-					"date": { "type": "string" }
-				}
-			},
-			"Job": {
-				"required": ["title"],
-				"type": "object",
-				"properties": {
-					"id": { "type": "integer" },
-					"title": { "type": "string" },
-					"company": { "type": "string" },
-					"location": { "type": "string" },
-					"total_applicants": { "type": "integer" },
-					"seniority_level": { "type": "string" },
-					"industry": { "type": "string" },
-					"job_function": { "type": "string" },
-					"salary": { "type": "string" },
-					"emp_type": { "type": "string" },
-					"status": { "type": "string" },
-					"description": { "type": "string" },
-					"endDate": { "type": "string" }
-				}
-			},
-			"Skill": {
-				"required": ["name"],
-				"type": "object",
-				"properties": {
-					"id": { "type": "integer" },
-					"name": { "type": "string" },
-					"description": { "type": "string" },
-					"similar": { "type": "array", "items": { "type": "string" } }
-				}
-			},
-			"Profile": {
-				"type": "object",
-				"properties": {
-					"id": { "type": "integer" },
-					"user": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"name": { "type": "string" },
-								"email": { "type": "string" },
-								"phone": { "type": "string" },
-								"country": { "type": "string" },
-								"address": { "type": "string" },
-								"photo": { "type": "string" },
-								"title": { "type": "string" },
-								"about": { "type": "string" }
-							}
-						}
-					},
-					"education": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"school": { "type": "string" },
-								"degree": { "type": "string" },
-								"from": { "type": "string" },
-								"to": { "type": "string" },
-								"description": { "type": "string" }
-							}
-						}
-					},
-					"experience": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"title": { "type": "string" },
-								"emp_type": { "type": "string" },
-								"company": { "type": "string" },
-								"location": { "type": "string" },
-								"start": { "type": "string" },
-								"end": { "type": "string" }
-							}
-						}
-					},
-					"skills": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"name": { "type": "string" },
-								"description": { "type": "string" },
-								"similar": { "type": "array", "items": { "type": "string" } }
-							}
-						}
-					}
-				}
-			}
-		},
-		"securitySchemes": {
-			"jwt_token": {
-				"type": "apiKey",
-				"name": "Authorization",
-				"in": "header",
-				"description": "Bearer Token",
-				"bearerFormat": "bearer"
-			}
-		}
-	},
-	"definitions": {
-		"response": {
-			"models": {
-				"User": {
-					"type": "object",
-					"properties": {
-						"id": {
-							"type": "integer"
-						},
-						"name": {
-							"type": "string"
-						},
-						"email": {
-							"type": "string"
-						}
-					}
-				},
-				"Job": {
-					"type": "object",
-					"properties": {
-						"id": { "type": "integer" },
-						"title": { "type": "string" },
-						"company": { "$ref": "#/definitions/response/models/User" },
-						"location": { "type": "string" },
-						"total_applicants": { "type": "integer" },
-						"seniority_level": { "type": "string" },
-						"industry": { "type": "string" },
-						"job_function": { "type": "string" },
-						"salary": { "type": "string" },
-						"emp_type": { "type": "string" },
-						"status": { "type": "string" },
-						"description": { "type": "string" },
-						"endDate": { "type": "string" }
-					}
-				},
-				"Skill": {
-					"type": "object",
-					"properties": {
-						"id": {
-							"type": "string"
-						},
-						"name": {
-							"type": "string"
-						},
-						"description": {
-							"type": "string"
-						},
-						"similar": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						}
-					}
-				},
-				"UserLogin": {
-					"type": "object",
-					"properties": {
-						"status": {
-							"type": "string"
-						},
-						"token": {
-							"type": "string"
-						}
-					}
-				},
-				"UserCreate": {
-					"type": "object",
-					"properties": {
-						"user": {
-							"$ref": "#/definitions/response/models/User"
-						},
-						"token": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"invalid": {
-				"type": "object",
-				"properties": {
-					"statusCode": {
-						"type": "string"
-					},
-					"message": {
-						"type": "string"
-					}
-				}
-			}
-		},
-		"request": {
-			"models": {
-				"User": {
-					"type": "object",
-					"properties": {
-						"name": {
-							"type": "string"
-						},
-						"email": {
-							"type": "string"
-						}
-					}
-				},
-				"Skill": {
-					"type": "object",
-					"properties": {
-						"name": {
-							"type": "string"
-						},
-						"description": {
-							"type": "string"
-						},
-						"similar": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						}
-					}
-				},
-				"Job": {
-					"type": "object",
-					"properties": {
-						"id": { "type": "integer" },
-						"title": { "type": "string" },
-						"location": { "type": "string" },
-						"total_applicants": { "type": "integer" },
-						"seniority_level": { "type": "string" },
-						"industry": { "type": "string" },
-						"job_function": { "type": "string" },
-						"salary": { "type": "string" },
-						"emp_type": { "type": "string" },
-						"status": { "type": "string" },
-						"description": { "type": "string" },
-						"endDate": { "type": "string" }
-					}
-				},
-				"JobUpdate": {
-					"type": "object",
-					"properties": {
-						"title": { "type": "string" },
-						"location": { "type": "string" },
-						"seniority_level": { "type": "string" },
-						"industry": { "type": "string" },
-						"job_function": { "type": "string" },
-						"salary": { "type": "string" },
-						"emp_type": { "type": "string" },
-						"status": { "type": "string" },
-						"description": { "type": "string" },
-						"endDate": { "type": "string" }
-					}
-				},
-				"UserLogin": {
-					"type": "object",
-					"properties": {
-						"email": {
-							"type": "string"
-						},
-						"password": {
-							"type": "string"
-						}
-					}
-				},
-				"UserCreate": {
-					"type": "object",
-					"properties": {
-						"name": {
-							"type": "string"
-						},
-						"email": {
-							"type": "string"
-						},
-						"password": {
-							"type": "string"
-						},
-						"role": {
-							"type": "string"
-						}
-					}
-				},
-				"Profile": {
-					"type": "object",
-					"properties": {
-						"education": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"school": { "type": "string" },
-									"degree": { "type": "string" },
-									"from": { "type": "string" },
-									"to": { "type": "string" },
-									"description": { "type": "string" }
-								}
-							}
-						},
-						"experience": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"title": { "type": "string" },
-									"emp_type": { "type": "string" },
-									"company": { "type": "string" },
-									"location": { "type": "string" },
-									"start": { "type": "string" },
-									"end": { "type": "string" }
-								}
-							}
-						},
-						"skills": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AI Based Job Recruiter System",
+    "description": "API accessibility terms:\nuser -> can be accessed by users,\ncompany -> can be accessed by companies\nadmin -> can be accessed by admins\nboth -> can be accessed by users and companies\nall -> can be accessed by admins, users, and companies",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://159.89.175.16/api",
+      "description": ""
+    },
+    {
+      "url": "https://recruiter.ifotechservice.com/api",
+      "description": ""
+    },
+    {
+      "url": "http://localhost:5000/api",
+      "description": ""
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Users/companies API Collections"
+    },
+    {
+      "name": "profiles",
+      "description": "Profiles API Collections"
+    },
+    {
+      "name": "jobs",
+      "description": "Jobs API Collections"
+    },
+    {
+      "name": "skills",
+      "description": "Skills API Collections"
+    },
+    {
+      "name": "applied-jobs",
+      "description": "Applied jobs API Collections"
+    }
+  ],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Login user",
+        "requestBody": {
+          "description": "Email and password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/UserLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/response/models/UserLogin"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create user / company",
+        "requestBody": {
+          "description": "user model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/UserCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/UserCreate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/password/reset": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Reset Password Using Email.",
+        "requestBody": {
+          "description": "user's email to reset password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "systemTime": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/password/reset/verify": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Verify OTP.",
+        "requestBody": {
+          "description": "enter otp send to email",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "systemTime": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/users/password/reset/change": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Change User Password After OTP (both)",
+        "requestBody": {
+          "description": "change user password after success otp",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "systemTime": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/jobs": {
+      "get": {
+        "tags": ["jobs"],
+        "summary": "Fetch all jobs (both)",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/response/models/Job"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      },
+      "post": {
+        "tags": ["jobs"],
+        "summary": "Create new Job By Company (company)",
+        "requestBody": {
+          "description": "Job model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/Job"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Job"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/jobs/{id}": {
+      "get": {
+        "tags": ["jobs"],
+        "summary": "Find job by Id (both)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Job that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Job"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Fetching Job"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      },
+      "patch": {
+        "tags": ["jobs"],
+        "summary": "Update Job by Id (company)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of job that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Categories model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/JobUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Job"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error updating Job"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/skills": {
+      "get": {
+        "tags": ["skills"],
+        "summary": "Fetch all skills (both)",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/response/models/Skill"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      },
+      "post": {
+        "tags": ["skills"],
+        "summary": "Create new skill (admin)",
+        "requestBody": {
+          "description": "skill model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/Skill"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Skill"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/skills/{id}": {
+      "get": {
+        "tags": ["skills"],
+        "summary": "Find skill by Id (both)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of skill that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Skill"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Fetching Skill"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      },
+      "patch": {
+        "tags": ["skills"],
+        "summary": "Update skill by Id (admin)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of skill that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "skills model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/Skill"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Skill"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error updating Skill"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/profiles": {
+      "get": {
+        "tags": ["profiles"],
+        "summary": "Fetch all profiles (admin)",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Profile"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/profiles/{userId}": {
+      "get": {
+        "tags": ["profiles"],
+        "summary": "Find user profile by Id (both)",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Fetching Profile"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      },
+      "patch": {
+        "tags": ["profiles"],
+        "summary": "Update profile by userId (both)",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId of user that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "send array of education (object), skills (id), experience (object)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/Profile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error updating Profile"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": ["name", "email", "password"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "password": { "type": "string" },
+          "country": { "type": "string" },
+          "address": { "type": "string" },
+          "role": { "type": "string" },
+          "photo": { "type": "string" },
+          "title": { "type": "string" },
+          "about": { "type": "string" },
+          "token": { "type": "string" },
+          "status": { "type": "integer" },
+          "date": { "type": "string" }
+        }
+      },
+      "Job": {
+        "required": ["title"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "title": { "type": "string" },
+          "company": { "type": "string" },
+          "location": { "type": "string" },
+          "total_applicants": { "type": "integer" },
+          "seniority_level": { "type": "string" },
+          "industry": { "type": "string" },
+          "job_function": { "type": "string" },
+          "salary": { "type": "string" },
+          "emp_type": { "type": "string" },
+          "status": { "type": "string" },
+          "description": { "type": "string" },
+          "endDate": { "type": "string" }
+        }
+      },
+      "Skill": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "similar": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "user": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "email": { "type": "string" },
+                "phone": { "type": "string" },
+                "country": { "type": "string" },
+                "address": { "type": "string" },
+                "photo": { "type": "string" },
+                "title": { "type": "string" },
+                "about": { "type": "string" }
+              }
+            }
+          },
+          "education": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "school": { "type": "string" },
+                "degree": { "type": "string" },
+                "from": { "type": "string" },
+                "to": { "type": "string" },
+                "description": { "type": "string" }
+              }
+            }
+          },
+          "experience": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "emp_type": { "type": "string" },
+                "company": { "type": "string" },
+                "location": { "type": "string" },
+                "start": { "type": "string" },
+                "end": { "type": "string" }
+              }
+            }
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "similar": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt_token": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Bearer Token",
+        "bearerFormat": "bearer"
+      }
+    }
+  },
+  "definitions": {
+    "response": {
+      "models": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "Job": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "title": { "type": "string" },
+            "company": { "$ref": "#/definitions/response/models/User" },
+            "location": { "type": "string" },
+            "total_applicants": { "type": "integer" },
+            "seniority_level": { "type": "string" },
+            "industry": { "type": "string" },
+            "job_function": { "type": "string" },
+            "salary": { "type": "string" },
+            "emp_type": { "type": "string" },
+            "status": { "type": "string" },
+            "description": { "type": "string" },
+            "endDate": { "type": "string" }
+          }
+        },
+        "Skill": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "similar": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "UserLogin": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        },
+        "UserCreate": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "$ref": "#/definitions/response/models/User"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "invalid": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "request": {
+      "models": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "Skill": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "similar": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "Job": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "title": { "type": "string" },
+            "location": { "type": "string" },
+            "total_applicants": { "type": "integer" },
+            "seniority_level": { "type": "string" },
+            "industry": { "type": "string" },
+            "job_function": { "type": "string" },
+            "salary": { "type": "string" },
+            "emp_type": { "type": "string" },
+            "status": { "type": "string" },
+            "description": { "type": "string" },
+            "endDate": { "type": "string" }
+          }
+        },
+        "JobUpdate": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "location": { "type": "string" },
+            "seniority_level": { "type": "string" },
+            "industry": { "type": "string" },
+            "job_function": { "type": "string" },
+            "salary": { "type": "string" },
+            "emp_type": { "type": "string" },
+            "status": { "type": "string" },
+            "description": { "type": "string" },
+            "endDate": { "type": "string" }
+          }
+        },
+        "UserLogin": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "UserCreate": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            }
+          }
+        },
+        "Profile": {
+          "type": "object",
+          "properties": {
+            "education": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "school": { "type": "string" },
+                  "degree": { "type": "string" },
+                  "from": { "type": "string" },
+                  "to": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            },
+            "experience": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "emp_type": { "type": "string" },
+                  "company": { "type": "string" },
+                  "location": { "type": "string" },
+                  "start": { "type": "string" },
+                  "end": { "type": "string" }
+                }
+              }
+            },
+            "skills": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
