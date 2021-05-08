@@ -8,13 +8,17 @@ client.search(
 		body: {
 			query: {
 				query_string: {
-					query: '*mpute*',
+					query: '*Blewett*',
 					fields: ['name^4', 'title^3', 'email'],
 				},
 			},
 			highlight: {
+				pre_tags: ['<b>'],
+				post_tags: ['</b>'],
 				fields: {
-					content: {},
+					title: { fragment_size: 150, number_of_fragments: 1 },
+					name: { fragment_size: 150, number_of_fragments: 1 },
+					email: { fragment_size: 150, number_of_fragments: 1 },
 				},
 			},
 		},
