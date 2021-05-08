@@ -28,7 +28,7 @@ const findByIdAndRemove = async (id) => {
 
 module.exports = {
 	create,
-	findAll,
+	search,
 	findOneById,
 	findByIdAndUpdate,
 	findByIdAndRemove,
