@@ -39,6 +39,10 @@
     {
       "name": "applied-jobs",
       "description": "Applied jobs API Collections"
+    },
+    {
+      "name": "recommendations",
+      "description": "Recommendations jobs API Collections"
     }
   ],
   "paths": {
@@ -466,6 +470,29 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/AppliedJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Fetching Job"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/recommendations": {
+      "get": {
+        "tags": ["recommendations"],
+        "summary": "Get All recommendations (user)",
         "responses": {
           "200": {
             "description": "successful operation",
