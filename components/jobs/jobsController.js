@@ -1,9 +1,19 @@
 const jobsService = require('./services');
 
 const findAll = async (req, res) => {
-  const { body, query, params } = req;
+  const { body, query, params, user } = req;
   try {
-    const response = await jobsService.findAll({ httpRequest: { query } });
+    const response = await jobsService.findAll({ httpRequest: { query, user } });
+    res.status(200).send(response);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send(e);
+  }
+};
+const getAppliedUsers = async (req, res) => {
+  const { body, query, params, user } = req;
+  try {
+    const response = await jobsService.getAppliedUsers({ httpRequest: { query, user } });
     res.status(200).send(response);
   } catch (e) {
     console.log(e);
@@ -61,4 +71,5 @@ module.exports = {
   findOne,
   update,
   destroy,
+  getAppliedUsers,
 };

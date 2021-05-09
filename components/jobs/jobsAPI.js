@@ -5,11 +5,15 @@ const passport = require('passport');
 
 // @route   api/jobs/
 Route.route('/')
-	.get(passport.authenticate('both', { session: false }), jobsController.findAll)
-	.post(passport.authenticate('company', { session: false }), jobsController.create);
+  .get(passport.authenticate('both', { session: false }), jobsController.findAll)
+  .post(passport.authenticate('company', { session: false }), jobsController.create);
+Route.route('/:id/applied-users').get(
+  passport.authenticate('company', { session: false }),
+  jobsController.getAppliedUsers
+);
 Route.route('/:id')
-	.get(passport.authenticate('both', { session: false }), jobsController.findOne)
-	.patch(passport.authenticate('company', { session: false }), jobsController.update);
+  .get(passport.authenticate('both', { session: false }), jobsController.findOne)
+  .patch(passport.authenticate('company', { session: false }), jobsController.update);
 // .delete(jobsController.destroy);
 
 module.exports = Route;

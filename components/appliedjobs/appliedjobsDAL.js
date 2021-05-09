@@ -23,6 +23,10 @@ const findAll = async ({ query, user }) => {
     .populate('user', 'name title');
 };
 
+const findAllAppliedJobs = async (jobId) => {
+  return await AppliedJob.find({ job: jobId }).sort('-date').populate('user', 'name title');
+};
+
 const findOne = async (appliedJobObj) => {
   const appliedjob = await AppliedJob.findOne(appliedJobObj);
   if (appliedjob) return appliedjob.toObject();
@@ -52,4 +56,5 @@ module.exports = {
   findOneById,
   findByIdAndUpdate,
   findByIdAndRemove,
+  findAllAppliedJobs,
 };
