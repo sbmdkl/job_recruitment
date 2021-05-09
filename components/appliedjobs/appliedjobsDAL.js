@@ -26,12 +26,12 @@ const findAll = async ({ query, user }) => {
 const findOne = async (appliedJobObj) => {
   const appliedjob = await AppliedJob.findOne(appliedJobObj);
   if (appliedjob) return appliedjob.toObject();
-  else return {};
+  else return null;
 };
 const findOneById = async (id) => {
   const appliedjob = await AppliedJob.findById(id);
   if (appliedjob) return appliedjob.toObject();
-  else return {};
+  else return null;
 };
 
 const findByIdAndUpdate = async ({ id, updateAppliedJob }) => {

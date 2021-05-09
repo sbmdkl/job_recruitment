@@ -385,7 +385,7 @@
             "description": "ID of Job that needs to be fetched",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -526,7 +526,7 @@
             "description": "ID of skill that needs to be fetched",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -558,7 +558,7 @@
             "description": "ID of skill that needs to be updated",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -667,7 +667,7 @@
             "description": "ID of applied-jobs that needs to be updated",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
