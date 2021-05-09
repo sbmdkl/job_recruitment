@@ -9,11 +9,22 @@ const findAll = async ({ query, user }) => {
   let { skip, limit } = query;
   skip = skip ? Number(skip) : 0;
   limit = limit ? Number(limit) : 10;
-  return await AppliedJob.find({ user: user.id }).skip(skip).limit(limit).sort('-date');
+  return await AppliedJob.find({ user: user.id })
+    .skip(skip)
+    .limit(limit)
+    .sort('-date')
+    .populate([
+      {
+        path: 'job',
+        select: 'title emp_type industry seniority_level company',
+        populate: { path: 'company', select: 'name title email' },
+      },
+    ])
+    .populate('user', 'name title');
 };
 
-const findOne = async (id, userId) => {
-  const appliedjob = await AppliedJob.findOne({ _id: id, user: userId });
+const findOne = async (appliedJobObj) => {
+  const appliedjob = await AppliedJob.findOne(appliedJobObj);
   if (appliedjob) return appliedjob.toObject();
   else return {};
 };

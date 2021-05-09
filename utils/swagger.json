@@ -592,6 +592,115 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/applied-jobs": {
+      "get": {
+        "tags": ["applied-jobs"],
+        "summary": "Fetch all applied jobs (user)",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/response/models/AppliedJob"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      },
+      "post": {
+        "tags": ["applied-jobs"],
+        "summary": "Create new applied-jobs (user)",
+        "requestBody": {
+          "description": "applied-jobs model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/AppliedJob"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/Skill"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/applied-jobs/{id}": {
+      "patch": {
+        "tags": ["applied-jobs"],
+        "summary": "Update applied-jobs by Id (company)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of applied-jobs that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "applied-jobs model fields",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/request/models/UpdateAppliedJob"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/AppliedJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error updating Skill"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/profiles": {
       "get": {
         "tags": ["profiles"],
@@ -891,6 +1000,14 @@
               "type": "string"
             }
           }
+        },
+        "AppliedJob": {
+          "type": "object",
+          "properties": {
+            "response_may_vary_try_and_see": {
+              "type": "string"
+            }
+          }
         }
       },
       "invalid": {
@@ -1030,6 +1147,25 @@
               "items": {
                 "type": "string"
               }
+            }
+          }
+        },
+        "AppliedJob": {
+          "type": "object",
+          "properties": {
+            "jobId": {
+              "type": "string"
+            }
+          }
+        },
+        "UpdateAppliedJob": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "integer"
+            },
+            "remarks": {
+              "type": "string"
             }
           }
         }
