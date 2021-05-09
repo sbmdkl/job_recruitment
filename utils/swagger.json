@@ -313,7 +313,7 @@
     "/jobs": {
       "get": {
         "tags": ["jobs"],
-        "summary": "Fetch all jobs (both)",
+        "summary": "Fetch recent jobs for user and all job of company by company (both)",
         "responses": {
           "200": {
             "description": "successful operation",
@@ -445,6 +445,40 @@
           },
           "400": {
             "description": "Error updating Job"
+          }
+        },
+        "security": [{ "jwt_token": [] }],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/jobs/{id}/applied-users": {
+      "get": {
+        "tags": ["jobs"],
+        "summary": "Find all applied users (company)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Job that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/response/models/AppliedJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Fetching Job"
           }
         },
         "security": [{ "jwt_token": [] }],
