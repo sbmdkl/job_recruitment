@@ -9,9 +9,7 @@ const findAll = async ({ query, user }) => {
   let { skip, limit } = query;
   skip = skip ? Number(skip) : 0;
   limit = limit ? Number(limit) : 10;
-  return await Recommendation.find({ $elemMatch: { users: user.id } })
-    .skip(skip)
-    .limit(limit)
+  let recommendations = await Recommendation.find({})
     .sort('-date')
     .populate([
       {
@@ -20,6 +18,21 @@ const findAll = async ({ query, user }) => {
         populate: { path: 'company', select: 'name title email' },
       },
     ]);
+  let results = [];
+  recommendations.forEach((rec) => {
+    if (rec.users.includes(user.id)) results.push(rec);
+  });
+  return results;
+  // .skip(skip)
+  // .limit(limit)
+  // .sort('-date')
+  // .populate([
+  //   {
+  //     path: 'job',
+  //     select: 'title emp_type industry seniority_level company',
+  //     populate: { path: 'company', select: 'name title email' },
+  //   },
+  // ]);
 };
 
 const findOneById = async (id) => {
