@@ -1116,16 +1116,18 @@
         "Job": {
           "type": "object",
           "properties": {
-            "id": { "type": "integer" },
             "title": { "type": "string" },
             "location": { "type": "string" },
-            "total_applicants": { "type": "integer" },
             "seniority_level": { "type": "string" },
             "industry": { "type": "string" },
             "job_function": { "type": "string" },
+            "skills": {
+              "items": {
+                "type": "string"
+              }
+            },
             "salary": { "type": "string" },
             "emp_type": { "type": "string" },
-            "status": { "type": "string" },
             "description": { "type": "string" },
             "endDate": { "type": "string" }
           }
@@ -1138,6 +1140,11 @@
             "seniority_level": { "type": "string" },
             "industry": { "type": "string" },
             "job_function": { "type": "string" },
+            "skills": {
+              "items": {
+                "type": "string"
+              }
+            },
             "salary": { "type": "string" },
             "emp_type": { "type": "string" },
             "status": { "type": "string" },

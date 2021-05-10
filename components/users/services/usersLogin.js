@@ -22,7 +22,7 @@ module.exports = function makeUserLogin({ User, bcrypt, jwt }) {
       errors.error = 'Account has not been activated';
       throw { ...errors };
     }
-    const payload = { id: user.id, name: user.name, email: user.email, roles: user.role };
+    const payload = { id: user.id, name: user.name, email: user.email, role: user.role };
     const token = await jwt.sign(payload, process.env.SecretOrKey, { expiresIn: '2d' });
     return loginDTO({ token });
   };

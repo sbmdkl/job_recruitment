@@ -2,7 +2,8 @@
 const Job = require('./Job');
 
 const create = async (newJob) => {
-  return await Job.create(newJob);
+  let job = await Job.create(newJob);
+  return await job.populate('skills', 'name description').execPopulate();
 };
 
 const findAll = async ({ query }) => {
