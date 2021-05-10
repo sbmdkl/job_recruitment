@@ -19,7 +19,7 @@ const findAllJobsByCompany = async (companyId) => {
 
 const findOne = async (jobObject) => {
   try {
-    const job = await Job.findOne(jobObject);
+    const job = await Job.findOne(jobObject).populate('skills', 'name description');
     if (job) return job.toObject();
     else return null;
   } catch (err) {
@@ -28,7 +28,7 @@ const findOne = async (jobObject) => {
 };
 
 const findOneById = async (id) => {
-  const job = await Job.findById(id);
+  const job = await Job.findById(id).populate('skills company', 'name description title location');
   if (job) return job.toObject();
   else return null;
 };

@@ -13,6 +13,7 @@ module.exports = ({
     status,
     description,
     endDate,
+    company,
   },
   isApplied,
 }) => ({
@@ -30,4 +31,5 @@ module.exports = ({
   description,
   isApplied,
   endDate,
+  company,
 });
