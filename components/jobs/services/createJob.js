@@ -1,6 +1,6 @@
 const { validateJob } = require('../validators');
 const { createJobDTO } = require('../dtos');
-
+const qs = require('qs');
 module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendation }) {
   return async function createJob({ httpRequest: { body, user } }) {
     const { errors, isValid, data } = validateJob(body);
@@ -31,8 +31,25 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
       dataAI += skill.name + ' ';
     });
     console.log(dataAI);
-    axios
-      .post('http://flask-job-recommendation.herokuapp.com/recommend-job', { job_skills: dataAI })
+    // request.post(
+    //   'https://flask-job-recommendation.herokuapp.com/recommend-job',
+    //   { job_skills: dataAI },
+    //   function (err, httpResponse, body) {
+    //     /* ... */
+    //     console.log(body);
+    //   }
+    // );
+
+    axios({
+      method: 'POST',
+      url: 'https://flask-job-recommendation.herokuapp.com/recommend-job',
+      data: qs.stringify({
+        job_skills: dataAI,
+      }),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    })
       .then((res) => {
         const recommendedUser = res.data.userId;
         const recommendationObj = {
