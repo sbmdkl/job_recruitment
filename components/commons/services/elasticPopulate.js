@@ -26,7 +26,9 @@ module.exports = function makeElasticPopulate({ Client }) {
           },
         });
       });
-      const jobs = await FindAllJobs({ httpRequest: { query: { limit: 0 } } });
+      const jobs = await FindAllJobs({
+        httpRequest: { query: { limit: 0 }, user: { role: 'user' } },
+      });
       console.log(jobs.length);
       jobs.forEach((job) => {
         Client.index({
