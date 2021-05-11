@@ -10,7 +10,6 @@ module.exports = function makeUpdateProfile({ Profile }) {
     },
   }) {
     const profile = await Profile.findOne({ user: user.id });
-    console.log(profile);
     if (!profile) throw { error: 'No such profile exists' };
     const { errors, isValid, data } = validateProfile({ ...profile, ...body });
     if (!isValid) {
@@ -21,7 +20,6 @@ module.exports = function makeUpdateProfile({ Profile }) {
       experience: data.getexperience(),
       skills: data.getskills(),
     };
-    console.log(updateProfile);
     let updatedProfile = await Profile.findByIdAndUpdate({ id: profile._id, updateProfile });
     if (!updateProfile) throw { error: 'Error while updating Profile' };
     console.log(updatedProfile);
