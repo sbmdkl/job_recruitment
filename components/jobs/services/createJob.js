@@ -32,7 +32,7 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
     });
     console.log(dataAI);
     axios
-      .post('https://flask-job-recommendation.herokuapp.com/recommend-job', { job_skills: dataAI })
+      .post('http://flask-job-recommendation.herokuapp.com/recommend-job', { job_skills: dataAI })
       .then((res) => {
         const recommendedUser = res.data.userId;
         const recommendationObj = {
