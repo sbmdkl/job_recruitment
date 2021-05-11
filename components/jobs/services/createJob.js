@@ -24,22 +24,13 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
       date: data.getdate(),
     };
     let createdJob = await Job.create(newJob);
-    console.log(createdJob);
-    ElasticAddJob({
-      httpRequest: {
-        body: {
-          id: createdJob.id,
-          title: createdJob.title,
-          location: createdJob.location,
-          industry: createdJob.industry,
-        },
-      },
-    });
+
     let dataAI = '';
     // fetch for recommendation list
     createdJob.skills.forEach((skill) => {
       dataAI += skill.name + ' ';
     });
+    console.log(dataAI);
     axios
       .post('https://flask-job-recommendation.herokuapp.com/recommend-job', { job_skills: dataAI })
       .then((res) => {
@@ -50,6 +41,18 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
         };
         Recommendation.create(recommendationObj);
       });
+
+    ElasticAddJob({
+      httpRequest: {
+        body: {
+          id: createdJob.id,
+          title: createdJob.title,
+          location: createdJob.location,
+          industry: createdJob.industry,
+        },
+      },
+    });
+
     return createJobDTO({ job: createdJob });
   };
 };
