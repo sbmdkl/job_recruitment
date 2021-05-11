@@ -23,7 +23,7 @@ const create = async (req, res) => {
 };
 
 const findOne = async (req, res) => {
-  const { params } = req;
+  const { params, user } = req;
   try {
     const response = await profilesService.findOne({ httpRequest: { params, user } });
     res.status(200).send(response);
