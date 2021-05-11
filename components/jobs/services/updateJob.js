@@ -19,7 +19,7 @@ module.exports = function makeUpdateJob({ Job, ElasticAddJob }) {
       title: data.gettitle(),
       location: data.getlocation(),
       total_applicants: data.gettotal_applicants(),
-      level: data.getlevel(),
+      level: data.getseniority_level(),
       skills: data.getskills(),
       seniority_level: data.getseniority_level(),
       industry: data.getindustry(),
