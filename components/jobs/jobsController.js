@@ -13,7 +13,7 @@ const findAll = async (req, res) => {
 const getAppliedUsers = async (req, res) => {
   const { body, query, params, user } = req;
   try {
-    const response = await jobsService.getAppliedUsers({ httpRequest: { query, user } });
+    const response = await jobsService.getAppliedUsers({ httpRequest: { params, user } });
     res.status(200).send(response);
   } catch (e) {
     console.log(e);
