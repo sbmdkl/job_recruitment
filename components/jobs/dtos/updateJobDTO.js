@@ -1,5 +1,6 @@
 module.exports = ({
   job: {
+    _id,
     title,
     location,
     total_applicants,
@@ -14,6 +15,7 @@ module.exports = ({
     endDate,
   },
 }) => ({
+  id: _id,
   title,
   location,
   total_applicants,
