@@ -5,6 +5,7 @@ const Route = express.Router();
 // @route
 Route.route('/es/initialize').get(commonsController.initialize);
 Route.route('/es/populate').get(commonsController.populate);
+Route.route('/es/delete').get(commonsController.destroy);
 Route.route('/es/search').get(commonsController.search);
 Route.route('/es/users/add').get(commonsController.addUserDocument);
 Route.route('/es/jobs/add').get(commonsController.addJobDocument);
