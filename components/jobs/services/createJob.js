@@ -40,7 +40,8 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
           users: recommendedUser,
         };
         Recommendation.create(recommendationObj);
-      });
+      })
+      .catch((e) => console.log(e));
 
     ElasticAddJob({
       httpRequest: {
