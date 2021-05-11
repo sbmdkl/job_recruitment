@@ -14,7 +14,7 @@ module.exports = function makeCreateAppliedJob({ AppliedJob, Job }) {
     let createdAppliedJob = await AppliedJob.create(newAppliedJob);
     let job = await Job.findOne({ _id: body.jobId });
     let upjob = await Job.findByIdAndUpdate({
-      id: job.id,
+      id: body.jobId,
       updateJob: { total_applicants: parseInt(job.total_applicants) + 1 },
     });
     console.log(upjob);
