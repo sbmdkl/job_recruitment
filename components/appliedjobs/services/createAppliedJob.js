@@ -12,6 +12,11 @@ module.exports = function makeCreateAppliedJob({ AppliedJob }) {
       job: body.jobId,
     };
     let createdAppliedJob = await AppliedJob.create(newAppliedJob);
+    let job = await Job.findOne({ _id: body.jobId });
+    Job.findByIdAndUpdate({
+      id: job.id,
+      updateJob: { total_applicants: job.total_applicants + 1 },
+    });
     return createAppliedJobDTO({ appliedjob: createdAppliedJob });
   };
 };
