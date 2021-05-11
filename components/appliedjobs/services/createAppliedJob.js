@@ -1,6 +1,6 @@
 const { createAppliedJobDTO } = require('../dtos');
 
-module.exports = function makeCreateAppliedJob({ AppliedJob }) {
+module.exports = function makeCreateAppliedJob({ AppliedJob, Job }) {
   return async function createAppliedJob({ httpRequest: { body, user } }) {
     let isJobApplied = await AppliedJob.findOne({ job: body.jobId, user: user.id });
     if (isJobApplied?.user) {
