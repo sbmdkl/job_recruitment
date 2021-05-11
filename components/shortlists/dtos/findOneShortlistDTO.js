@@ -1,5 +1,4 @@
-module.exports = ({ shortlist: { _id, job, users } }) => ({
-  id: _id,
+module.exports = ({ shortlist: { job, users } }) => ({
   job,
   users,
 });

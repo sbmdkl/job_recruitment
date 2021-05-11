@@ -11,19 +11,21 @@ module.exports = function makeFindOneShortlist({ Shortlist, Job, AppliedJob, Pro
     if (!job) throw { error: 'No such job exists' };
     let appliedjob = await AppliedJob.findAllAppliedJobs(jobId);
     let profiles = [];
-    let test = await appliedjob.forEach(async (aj, i) => {
+    for (const aj of appliedjob) {
       profile = await Profile.findOne({ user: aj.user._id });
       profiles.push(profile);
+    }
+    console.log({
+      job,
+      appliedUsers: profiles,
     });
-    console.log(test);
-    console.log(profiles);
     let shortlist = await Shortlist.findOne({ job: jobId });
     if (!shortlist) {
       // call for AI
       axios
         .post('https://flask-job-recommendation.herokuapp.com/userSortList', {
           job,
-          appliedUsers: appliedjob,
+          appliedUsers: profile,
         })
         .then((res) => {
           const shortlistUsers = res.data.userId;
@@ -33,8 +35,9 @@ module.exports = function makeFindOneShortlist({ Shortlist, Job, AppliedJob, Pro
           };
           Shortlist.create(shortlistUsersObj);
         });
+      return findOneShortlistDTO({ shortlist: { job: {}, users: [] } });
+    } else {
+      return findOneShortlistDTO({ shortlist });
     }
-    return 1;
-    // return findOneShortlistDTO({ shortlist });
   };
 };
