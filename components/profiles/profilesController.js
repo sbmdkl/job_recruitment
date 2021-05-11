@@ -34,9 +34,9 @@ const findOne = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { params, body } = req;
+  const { params, body, user } = req;
   try {
-    const response = await profilesService.update({ httpRequest: { params, body } });
+    const response = await profilesService.update({ httpRequest: { params, body, user } });
     res.status(200).send(response);
   } catch (e) {
     console.log(e);
