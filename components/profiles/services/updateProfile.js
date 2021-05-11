@@ -4,7 +4,7 @@ const { updateProfileDTO } = require('../dtos');
 module.exports = function makeUpdateProfile({ Profile }) {
   return async function updateProfile({
     httpRequest: {
-      params: { id },
+      params: { userId },
       body,
       user,
     },
@@ -22,7 +22,7 @@ module.exports = function makeUpdateProfile({ Profile }) {
       skills: data.getskills(),
     };
     console.log(updateProfile);
-    let updatedProfile = await Profile.findByIdAndUpdate({ id, updateProfile });
+    let updatedProfile = await Profile.findByIdAndUpdate({ id: profile._id, updateProfile });
     if (!updateProfile) throw { error: 'Error while updating Profile' };
     console.log(updatedProfile);
     return updateProfileDTO({ profile: { ...profile, ...updatedProfile } });
