@@ -7,3 +7,4 @@ stderr.log
 package-lock.json
 public
 tmp
+yarn.lock
