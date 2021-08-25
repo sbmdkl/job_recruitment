@@ -7,14 +7,6 @@
   },
   "servers": [
     {
-      "url": "http://159.89.175.16/api",
-      "description": ""
-    },
-    {
-      "url": "https://recruiter.ifotechservice.com/api",
-      "description": ""
-    },
-    {
       "url": "http://localhost:5000/api",
       "description": ""
     }
