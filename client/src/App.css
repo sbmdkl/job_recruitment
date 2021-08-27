@@ -1,0 +1,21 @@
+.Toastify__toast--success {
+   background-color: #28a745;
+}
+
+.Toastify__toast--error {
+   background-color: #dc3545;
+}
+.modal-min-width-80percent {
+   min-width: 80%;
+}
+/* navbar menu dropdown */
+#dropdown-basic::after {
+   display: none;
+}
+
+/* carousel arrow stlyles */
+.slick-prev:before,
+.slick-next:before {
+   color: #343a40;
+   padding: 10px;
+}
